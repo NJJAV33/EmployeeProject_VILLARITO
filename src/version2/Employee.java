@@ -37,13 +37,13 @@ public class Employee {
         System.out.println("\n--- Piece Worker Employee Test ---");
 
         PieceWorkerEmployee piece1 =
-                new PieceWorkerEmployee(201, "Bob");
+                new PieceWorkerEmployee(201, new Name("Bob", ""));
 
         piece1.setTotalPieceFinished(250);
         piece1.setRatePerPiece(15.00);
 
         PieceWorkerEmployee piece2 =
-                new PieceWorkerEmployee(202, "Bobina", 0, 23.00);
+                new PieceWorkerEmployee(202, new Name("Bobina", "Bet", "Braun"), new MyDate(12, 12, 2018), new MyDate(3, 5, 2000), 0, 23.00);
 
         System.out.println("[displayPieceWorkerEmployee()]");
         piece1.displayPieceWorkerEmployee();
@@ -57,12 +57,12 @@ public class Employee {
         System.out.println("\n--- Commission Employee Test ---");
 
         CommissionEmployee commission1 =
-                new CommissionEmployee(301, "Blu");
+                new CommissionEmployee(301, new Name("Blu", ""));
 
         commission1.setTotalSale(82000);
 
         CommissionEmployee commission2 =
-                new CommissionEmployee(302, "Brown Jr.", 600000);
+                new CommissionEmployee(302, new Name("Bron", "White"), 600000);
 
         System.out.println("[displayCommissionEmployee()]");
         commission1.displayCommissionEmployee();
@@ -76,14 +76,14 @@ public class Employee {
         System.out.println("\n--- Base Plus Commission Employee Test ---");
 
         BasePlusCommissionEmployee basePlus1 =
-                new BasePlusCommissionEmployee(401, new Name("George", "Gran", "Boblet");
+                new BasePlusCommissionEmployee(401, new Name("George", "Gran", "Boblet"));
 
         basePlus1.setTotalSale(120000);
         basePlus1.setBaseSalary(15000);
 
         BasePlusCommissionEmployee basePlus2 =
                 new BasePlusCommissionEmployee(
-                        402, new Name("Georgina", "Green"), 30000, 10000);
+                        402, new Name("Georgina", "Green"), new MyDate(3, 7, 2020), new MyDate(13, 9, 1994) ,30000, 10000);
 
         System.out.println("[displayBasePlusCommissionEmployee()]");
         basePlus1.displayBasePlusCommissionEmployee();

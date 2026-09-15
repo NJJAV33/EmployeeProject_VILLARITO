@@ -20,6 +20,8 @@ public class HourlyEmployee {
     public HourlyEmployee(int empID, Name empName) {
         this.empID = empID;
         this.empName = empName;
+        this.dateHired = dateHired;
+        this.birthdate = birthdate;
         this.totalHoursWorked = 0.0f;
         this.ratePerHour = 0.0;
     }
@@ -27,6 +29,8 @@ public class HourlyEmployee {
     public HourlyEmployee(int empID, String firstName, String lastName) {
         this.empID = empID;
         this.empName = new Name(firstName, lastName);
+        this.dateHired = dateHired;
+        this.birthdate = birthdate;
         this.totalHoursWorked = 0.0f;
         this.ratePerHour = 0.0;
     }
@@ -34,6 +38,8 @@ public class HourlyEmployee {
     public HourlyEmployee(int empID, Name empName, float totalHoursWorked, double ratePerHour) {
         this.empID = empID;
         this.empName = empName;
+        this.dateHired = dateHired;
+        this.birthdate = birthdate;
         this.totalHoursWorked = totalHoursWorked;
         this.ratePerHour = ratePerHour;
     }
@@ -122,17 +128,26 @@ public class HourlyEmployee {
             regularPay = 40 * ratePerHour;
             overtimePay = (totalHoursWorked - 40) * (ratePerHour * 1.5);
         }
-        return regularPay + overtimePay;
+        double salary = regularPay + overtimePay;
+
+        if (birthdate != null) {
+            int currentMonth = java.time.LocalDate.now().getMonthValue();
+
+            if (birthdate.getMonth() == currentMonth) {
+                salary += 5000.00;
+            }
+        }
+        return salary;
     }
 
     public void displayHourlyEmployee() {
-        System.out.printf("ID: %d | Name: %s | Hours: %.2f | Rate: PHP%.2f/hr%n",
-                empID, empName, totalHoursWorked, ratePerHour);
+        System.out.printf("ID: %d | Name: %s | Birthdate: %s | Date Hired: %s | Hours: %.2f | Rate: PHP%.2f/hr%n",
+                empID, empName, birthdate, dateHired, totalHoursWorked, ratePerHour);
     }
 
     @Override
     public String toString() {
-        return String.format("HourlyEmployee [ID: %d, Name: %s, Hours: %.2f, Rate: PHP%.2f, Total Salary: PHP%.2f]",
-                empID, empName, totalHoursWorked, ratePerHour, computeSalary());
+        return String.format("HourlyEmployee [ID: %d, Name: %s, Birthdate: %s, Date Hired: %s, Hours: %.2f, Rate: PHP%.2f, Total Salary: PHP%.2f]",
+                empID, empName, birthdate, dateHired, totalHoursWorked, ratePerHour, computeSalary());
     }
 }

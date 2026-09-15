@@ -10,24 +10,40 @@ package version2;
  */
 public class CommissionEmployee {
     private int empID;
-    private String empName;
+    private Name empName;
+    private MyDate dateHired;
+    private MyDate birthdate;
     private double totalSale;
 
     public CommissionEmployee() {
         this.empID = 0;
-        this.empName = "N/A";
+        this.empName = new Name();
+        this.dateHired = new MyDate();
+        this.birthdate = new MyDate();
         this.totalSale = 0.0;
     }
 
-    public CommissionEmployee(int empID, String empName) {
+    public CommissionEmployee(int empID, Name empName) {
         this.empID = empID;
         this.empName = empName;
+        this.dateHired = new MyDate();
+        this.birthdate = new MyDate();
         this.totalSale = 0.0;
     }
 
-    public CommissionEmployee(int empID, String empName, double totalSale) {
+    public CommissionEmployee(int empID, Name empName, double totalSale) {
         this.empID = empID;
         this.empName = empName;
+        this.dateHired = new MyDate();
+        this.birthdate = new MyDate();
+        setTotalSale(totalSale);
+    }
+
+    public CommissionEmployee(int empID, Name empName, MyDate dateHired, MyDate birthdate, double totalSale) {
+        this.empID = empID;
+        this.empName = empName;
+        this.dateHired = dateHired;
+        this.birthdate = birthdate;
         setTotalSale(totalSale);
     }
 
@@ -39,12 +55,28 @@ public class CommissionEmployee {
         this.empID = empID;
     }
 
-    public String getEmpName() {
+    public Name getEmpName() {
         return empName;
     }
 
-    public void setEmpName(String empName) {
+    public void setEmpName(Name empName) {
         this.empName = empName;
+    }
+
+    public MyDate getDateHired() {
+        return dateHired;
+    }
+
+    public MyDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setDateHired(MyDate dateHired) {
+        this.dateHired = dateHired;
+    }
+
+    public void setBirthdate(MyDate birthdate) {
+        this.birthdate = birthdate;
     }
 
     public double getTotalSale() {
@@ -72,18 +104,27 @@ public class CommissionEmployee {
     }
 
     public double computeSalary() {
-        return totalSale * getCommissionRate();
+        double salary = totalSale * getCommissionRate();
+        if (birthdate != null) {
+            java.time.LocalDate today = java.time.LocalDate.now();
+            int currentMonth = today.getMonthValue();
+
+            if (birthdate.getMonth() == currentMonth) {
+                salary += 5000.00;
+            }
+        }
+        return salary;
     }
 
     public void displayCommissionEmployee() {
-        System.out.printf("ID: %d | Name: %s | Total Sales: PHP%.2f%n", 
-            empID, empName, totalSale);
+        System.out.printf("ID: %d | Name: %s | Birthdate: %s | Date Hired: %s | Total Sales: PHP%.2f%n",
+            empID, empName, birthdate, dateHired, totalSale);
     }
 
     @Override
     public String toString() {
         double ratePercent = getCommissionRate() * 100;
-        return String.format("CommissionEmployee [ID: %d, Name: %s, Total Sales: PHP%.2f, Rate: %.0f%%, Total Salary: PHP%.2f]", 
-            empID, empName, totalSale, ratePercent, computeSalary());
+        return String.format("CommissionEmployee [ID: %d, Name: %s, Birthdate: %s, Date Hired: %s, Total Sales: PHP%.2f, Rate: %.0f%%, Total Salary: PHP%.2f]",
+            empID, empName, birthdate, dateHired, totalSale, ratePercent, computeSalary());
     }
 }

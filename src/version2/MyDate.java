@@ -43,6 +43,6 @@ public class MyDate {
         String[] months = {"", "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"};
         String monthName = (month >= 1 && month <= 12) ? months[month] : "Unknown";
-        return String.format("%d %s, %d", day, monthName, year);
+        return String.format("%d %s %d", day, monthName, year);
     }
 }
